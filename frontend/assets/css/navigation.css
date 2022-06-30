@@ -1,0 +1,29 @@
+.nav-bar {
+    width: 100%;
+    background-color: transparent;
+    align-items: center;
+}
+.nav {
+    display: flex;
+    justify-content: space-between;
+    background-color: rgba(15, 22, 15, 0.466);
+    align-items: center;
+}
+/* .logo {} */
+.nav-bar ul{
+    display: flex;
+    align-items: center;
+    margin-left: 1rem;
+    margin-bottom: 0;
+}
+.nav-bar ul li {
+    border: 1px;
+}
+.nav-bar ul li a{
+    text-decoration: none;
+    color: beige;
+    font-family: 'Courier New', Courier, monospace;
+}
+.nav-bar button {
+    border: 1px ;
+}
