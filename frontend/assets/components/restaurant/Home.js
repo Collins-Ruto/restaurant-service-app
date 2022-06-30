@@ -4,14 +4,18 @@ import '../../css/home.css'
 import kitchen from "../../svg/plate.svg";
 import fast from "../../svg/fast.svg"
 import order from "../../svg/waiter.svg"
-import { menu, menu_items, menu_items } from '../../js/near/utils';
+import enjoy from "../../svg/cocktail.svg"
+import { order, menu, menu_items, menu_items, reciept } from '../../js/near/utils';
 
 export default function Home({restaurant}) {
   // const hash = hello(restaurant._id);
   // console.log(hash);
   const [menu, setMenu] = useState([])
   const [foodIn, setFoodIn] = useState("")
-  const [foodList, setFoodList] = useState([])
+  const [foodList, setFoodList] = useState(["pizza", "mushroom", "cheese"])
+  const [isConfirm, setIsConfirm] = useState(false)
+  const [cost, setCost] = useState(0)
+  const [table, setTable] = useState(0)
 
   const menus = async () => {
     let menu_data = await menu_items(
@@ -25,47 +29,63 @@ export default function Home({restaurant}) {
     menus()
   }, [])
 
-  
-  
-    function addFood(e) {
-      const food = e.target.value;
-      if (food === "") {
-        setFoodIn("")
-      }
-    }
-
-    function addFoods(){
-      foodList.push(foodIn)
+  function addFood(e) {
+    const food = e.target.value;
+    if (food === "") {
       setFoodIn("")
+      return
     }
+    setFoodIn(food)
+  }
 
-    function dropChoice(dropFood){
-      foodList.filter(food => food != dropFood)
+  function addFoods(){
+    foodList.push(foodIn)
+    setFoodIn("")
+  }
+
+  function dropChoice(dropFood){
+    newFood = foodList.filter(food => food != dropFood)
+    setFoodList(newFood)
+  }
+
+  const confirm = async () => {
+    if (isConfirm) {
+      order(restaurant._id, table, foodList);
+      let cost = await reciept(restaurant._id, table);
+      setCost(cost);
+      setIsConfirm(false);
+      setFoodList([]);
     }
-    
-    const menu_list = menu.map((menu_item) => {
+    setIsConfirm(true);
+  };
+
+  const tableNum = (num) => {
+    setTable(num);
+  }
+  
+  const menu_list = menu.map((menu_item, index) => {
+  return (
+    <div
+      className="menu_item d-flex justify-content-between w-70"
+      key={index}
+    >
+      <h3>{menu_item[0]}</h3>
+      <h3>{menu_item[1]} Ⓝ</h3>
+      {console.log(menu_item[0])}
+    </div>
+  );})
+
+  const foodChoices = foodList.map((food, index) => {
     return (
-      <div
-        className="menu_item d-flex justify-content-between w-70"
-        key={menu_item[1]}
-      >
-        <h3>{menu_item[0]}</h3>
-        <h3>{menu_item[1]} Ⓝ</h3>
-        {console.log(menu_item[0])}
+      <div className="food_choices d-flex" key={index}>
+        <h4>{food}</h4>
+        <button onClick={() => dropChoice(food)}>Drop choice</button>
       </div>
-    );})
-
-    const foodChoices = foodList.map((food) => {
-      return (
-        <div className="food_choices">
-          <h4>{food}</h4>
-          <button onClick={() => dropChoice(food)}>Drop choice</button>
-        </div>
-      )
-    })
+    )
+  })
 
   return (
-    <div className='m-0 home-page'>
+    <div className="m-0 home-page">
       <div className="nav">
         <Navigation />
       </div>
@@ -77,7 +97,10 @@ export default function Home({restaurant}) {
             <img src={kitchen}></img>
             <img src={fast}></img>
           </div>
-          <h6>Address: {`${restaurant.address?.building} ${restaurant.address?.street}, ${restaurant.address?.zipcode}`}</h6>
+          <h6>
+            Address:{" "}
+            {`${restaurant.address?.building} ${restaurant.address?.street}, ${restaurant.address?.zipcode}`}
+          </h6>
           <button onClick={() => {}}>Make an order</button>
         </section>
 
@@ -89,20 +112,44 @@ export default function Home({restaurant}) {
         <section className="order">
           <div className="welc">
             <img src={order} alt="order"></img>
-            <h2>What would you like</h2>
+            <h4>What would you like for your table?</h4>
           </div>
-          <div className="choose d-flex justify-content-between">
-            <input type="text" name="food" value={foodIn} onChange={addFood}></input>
-            <button className="btn btn-primary" onClick={addFoods}>add cuisine</button>
+          <div className="tables">
+            <input type="number" name="table" onch />
           </div>
-          <div className="choices">
-            {foodChoices}
+          <div className="choose d-flex justify-content-center">
+            <input
+              type="text"
+              name="food"
+              value={foodIn}
+              onChange={addFood}
+            ></input>
+            <button className="btn btn-primary" onClick={addFoods}>
+              add cuisine
+            </button>
+          </div>
+          {isConfirm ? (
+            <div className="costs text-center mt-5">
+              <h3 className="mb-4">Your order is confirmed, enjoy!</h3>
+              <img src={enjoy} alt="enjoy"></img>
+              <h4 className="mt-3">Your bill is: {cost} </h4>
+            </div>
+          ) : (
+            <>
+              <div className="choices">{foodChoices}</div>
+              <div className="confirm text-center mt-3">
+                <button onClick={confirm}>Confirm Order</button>
+              </div>
+            </>
+          )}
+          <div className="info">
+            <small>
+              Note: add item multiple times for multiple order of the same{" "}
+            </small>
           </div>
         </section>
 
-        <section className="stats">
-          stats
-        </section>
+        <section className="stats">stats</section>
       </div>
     </div>
   );

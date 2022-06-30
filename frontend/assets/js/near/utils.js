@@ -97,3 +97,11 @@ export async function menu_items(id) {
   })
   return menus
 }
+
+export async function order(id, table, foods) {
+  await window.contract.order({id:id, table_number: table, food_choice: foods})
+}
+
+export async function reciept(id, table) {
+  await window.contract.reciept({id:id, table_number: table})
+}

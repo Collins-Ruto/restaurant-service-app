@@ -1,6 +1,7 @@
 .home-page {
     background-image:linear-gradient(rgba(9, 12, 8, 0.786), rgba(0, 0, 0, 0.7)), url(../../assets/img/rest.jpeg);
     background-repeat: no-repeat;
+    background-size:contain;
 }
 /* .main-cont{} */
 .home-page section{
@@ -42,6 +43,7 @@
 .home-page .menu {
     padding:0 4rem;
     background-image: linear-gradient(rgba(9, 12, 8, 0.786), rgba(28, 38, 40, 0.7)), url(../../assets/img/table.jpeg);
+    background-size: contain;
 }
 .menu h2{text-align: center;}
 .menu h4{text-align: center;}
@@ -51,10 +53,57 @@
     background-color: rgb(22, 32, 22);
     background-repeat: no-repeat;
     background-size: cover;
+    display: flex;
+    flex-direction: column;
+    /* overflow: hidden; */
 }
 .order img {
     width: 5rem;
 }
 .order .welc {
     text-align: center;
+    margin: 1rem;
+}
+.welc h4 {
+    margin-top: .5rem;
+}
+.choose input{
+    margin-right: 2rem;
+}
+.choices {
+    display: flex;
+    margin-top: 2rem;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+}
+.order .food_choices {
+    min-width: 45%;
+    max-width: 45%;
+    justify-content: space-between;
+    border-bottom: 4px solid;
+    text-align: center;
+    padding: .5rem ;
+    height: 3.5rem;
+}
+.food_choices button {
+    border-radius: .2rem;
+    padding:.2rem .5rem;
+}
+.confirm button{
+    border-radius: .2rem;
+    background: rgb(2, 53, 2);
+    padding: .5rem .8rem;
+}
+
+.order .info {
+    float:inline-end;
+    margin-top: auto;
+}
+
+@media (max-width: 768px) {
+    .order .food_choices {
+        min-width: 100%;
+        text-align: center;
+    }
 }
