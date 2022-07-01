@@ -3,17 +3,17 @@ use std::collections::HashMap;
 
 pub fn menu_items() -> HashMap<String, f32> {
     HashMap::from([
-    ("strip steak".to_string(),12.0),
-    (stg("cut fillet"),15.0),
-    (stg("ribeye steak"),15.0),
-    (stg("fried egg"),3.0),
-    (stg("prawns"),5.0),
-    (stg("mushroom"),4.0),
-    (stg("roast potatoes"), 7.0),
-    (stg("roast veggies"), 8.0),
-    (stg("salad "), 7.65),
-    (stg("apple Pie"), 8.50),
-    (stg("ice-cream"), 6.2)
+        ("strip steak".to_string(), 12.0),
+        (stg("cut fillet"), 15.0),
+        (stg("ribeye steak"), 15.0),
+        (stg("fried egg"), 3.0),
+        (stg("prawns"), 5.0),
+        (stg("mushroom"), 4.0),
+        (stg("roast potatoes"), 7.0),
+        (stg("roast veggies"), 8.0),
+        (stg("salad"), 7.65),
+        (stg("apple Pie"), 8.50),
+        (stg("ice-cream"), 6.2),
     ])
 }
 
@@ -23,10 +23,13 @@ fn stg(food: &str) -> String {
 
 #[allow(dead_code)]
 pub fn hello(rating: f32) {
-    log!("
+    log!(
+        "
         Welcome to Gees reastaurant \n
         Our services currently have an average rating of {}
-    ", rating);
+    ",
+        rating
+    );
     env::log_str(
         "Function calls are as follows:
         menu: 'menu'
@@ -34,12 +37,13 @@ pub fn hello(rating: f32) {
         reciept: 'reciept {\"table_number\"}'
         pay: 'pay {\"table_number\"}'
         ratings: 'ratings {\"rating\", \"table_number\"}'
-        "
+        ",
     );
 }
 
 pub fn menu() {
-    env::log_str("\n
+    env::log_str(
+        "\n
             BEEF
                 Strip steak                 12.0 Ⓝ, 
                 Cut Fillet                  15.0 Ⓝ, 
@@ -55,5 +59,6 @@ pub fn menu() {
             DESSERTS
                 Apple Pie                   8.50 Ⓝ, 
                 Ice-cream                   6.20 Ⓝ,
-        ")
- }
+        ",
+    )
+}

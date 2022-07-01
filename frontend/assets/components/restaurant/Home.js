@@ -12,10 +12,11 @@ export default function Home({restaurant}) {
   // console.log(hash);
   const [menu, setMenu] = useState([])
   const [foodIn, setFoodIn] = useState("")
-  const [foodList, setFoodList] = useState(["pizza", "mushroom", "cheese"])
+  const [foodList, setFoodList] = useState(["salad ", "prawns", "fried egg"])
   const [isConfirm, setIsConfirm] = useState(false)
   const [cost, setCost] = useState(0)
-  const [table, setTable] = useState(0)
+  const [table, setTable] = useState()
+  const [tempTable, setTempTable] = useState()
 
   const menus = async () => {
     let menu_data = await menu_items(
@@ -49,18 +50,28 @@ export default function Home({restaurant}) {
   }
 
   const confirm = async () => {
-    if (isConfirm) {
-      order(restaurant._id, table, foodList);
-      let cost = await reciept(restaurant._id, table);
-      setCost(cost);
-      setIsConfirm(false);
+    if (!isConfirm) {
+      await order(restaurant._id || "5eb3d668b31de5d588f42936", table, foodList);
+      await reciept(
+        restaurant._id || "5eb3d668b31de5d588f42936",
+        table
+      ).then((cost) => setCost(cost));
+      setIsConfirm(true);
       setFoodList([]);
     }
-    setIsConfirm(true);
+    // setIsConfirm(true);
   };
 
-  const tableNum = (num) => {
-    setTable(num);
+  const tableUpdate = (e) => {
+    let tableint = parseInt(e.target.value);
+    setTempTable(tableint);
+  }
+  const tableNum = () => {
+    setTable(tempTable);
+  }
+
+  const pay = () => {
+
   }
   
   const menu_list = menu.map((menu_item, index) => {
@@ -112,27 +123,45 @@ export default function Home({restaurant}) {
         <section className="order">
           <div className="welc">
             <img src={order} alt="order"></img>
-            <h4>What would you like for your table?</h4>
+            {table?<h4>What would you like for your table?</h4>:
+            <h4>Please enter your table number</h4>}
           </div>
-          <div className="tables">
-            <input type="number" name="table" onch />
-          </div>
-          <div className="choose d-flex justify-content-center">
-            <input
-              type="text"
-              name="food"
-              value={foodIn}
-              onChange={addFood}
-            ></input>
-            <button className="btn btn-primary" onClick={addFoods}>
-              add cuisine
-            </button>
-          </div>
+          {!table ? (
+            <div className="tables d-flex justify-content-center">
+              <input
+                className="me-4"
+                type="number"
+                value={tempTable}
+                name="table"
+                placeholder="Table number"
+                onChange={tableUpdate}
+              />
+              <button className="btn btn-primary" onClick={tableNum}>
+                confirm
+              </button>
+            </div>
+          ) : (
+            <div className="choose d-flex justify-content-center">
+              <input
+                type="text"
+                name="food"
+                value={foodIn}
+                onChange={addFood}
+                placeholder="Your food choice"
+              ></input>
+              <button className="btn btn-primary" onClick={addFoods}>
+                add cuisine
+              </button>
+            </div>
+          )}
+
           {isConfirm ? (
             <div className="costs text-center mt-5">
+              <h3>Table no: {table}</h3>
               <h3 className="mb-4">Your order is confirmed, enjoy!</h3>
               <img src={enjoy} alt="enjoy"></img>
               <h4 className="mt-3">Your bill is: {cost} </h4>
+              <button onClick={pay}>pay</button>
             </div>
           ) : (
             <>

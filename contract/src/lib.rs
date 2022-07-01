@@ -127,11 +127,12 @@ impl Contract {
         }
     }
     // Called to get the reciept for the cost of meals per table_number
-    pub fn reciept(&self, id: String, table_number: u8) {
+    pub fn reciept(&self, id: String, table_number: u8) -> f32 {
         log!(
             "You will be charged {} near",
             self.restaurants[&id].table_allocation[&table_number].cost
         );
+        self.restaurants[&id].table_allocation[&table_number].cost
     }
 
     // A payable function where clients can pay for their meals using NEAR tokens

@@ -99,9 +99,20 @@ export async function menu_items(id) {
 }
 
 export async function order(id, table, foods) {
-  await window.contract.order({id:id, table_number: table, food_choice: foods})
+  await window.contract.order({
+    id: id, table_number: table, food_choice: foods
+  })
 }
 
 export async function reciept(id, table) {
-  await window.contract.reciept({id:id, table_number: table})
+  console.log("id: " + id, "table_number: " + table)
+  let cost = await window.contract.reciept({
+    id: id, table_number: table
+  })
+  
+  return cost
+}
+
+export async function pay(id, table) {
+
 }
