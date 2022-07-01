@@ -93,7 +93,7 @@ const RestaurantsList = ({setRestaurant}) => {
     if (rests.includes(restaurant._id)) {
       console.log("restaurants is thee");
     }else{
-      new_restaurant(restaurant.name, restaurant._id);
+      await new_restaurant(restaurant.name, restaurant._id);
       console.log("restaurants is not there");
   }
     setRestaurant(restaurant);

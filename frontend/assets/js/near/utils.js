@@ -109,10 +109,14 @@ export async function reciept(id, table) {
   let cost = await window.contract.reciept({
     id: id, table_number: table
   })
-  
   return cost
 }
 
-export async function pay(id, table) {
-
+export async function pay(id, table, cost) {
+  let status = await window.contract.pay({
+    id: id, table_number: table },
+    "300000000000000",
+    (cost*10000+"00000000000000000000").toString(),
+  );
+  return status
 }

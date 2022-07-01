@@ -70,11 +70,7 @@ impl Contract {
         }
         ids
     }
-    // call to get initial instructions on how to use contract
-    // pub fn hello(&self, id: String) {
-    //     info::hello(self.restaurants[&id].avg_rating);
-    // }
-    // Call to get the menu
+    
     pub fn menu(&self) {
         info::menu();
     }

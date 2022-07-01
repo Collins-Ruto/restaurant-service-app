@@ -3,17 +3,22 @@ use std::collections::HashMap;
 
 pub fn menu_items() -> HashMap<String, f32> {
     HashMap::from([
-        ("strip steak".to_string(), 12.0),
-        (stg("cut fillet"), 15.0),
-        (stg("ribeye steak"), 15.0),
+        ("strip steak".to_string(), 2.0),
+        (stg("cut fillet"), 3.5),
+        (stg("ribeye steak"), 4.0),
         (stg("fried egg"), 3.0),
-        (stg("prawns"), 5.0),
-        (stg("mushroom"), 4.0),
+        (stg("prawns"), 3.0),
+        (stg("mushroom"), 4.5),
         (stg("roast potatoes"), 7.0),
-        (stg("roast veggies"), 8.0),
-        (stg("salad"), 7.65),
-        (stg("apple Pie"), 8.50),
-        (stg("ice-cream"), 6.2),
+        (stg("roast veggies"), 1.5),
+        (stg("salad"), 0.65),
+        (stg("apple Pie"), 2.3),
+        (stg("ice-cream"), 1.5),
+        (stg("mushroom"), 4.5),
+        (stg("roast potatoes"), 7.0),
+        (stg("roast veggies"), 1.5),
+        (stg("salad"), 0.65),
+        (stg("apple Pie"), 2.3),
     ])
 }
 

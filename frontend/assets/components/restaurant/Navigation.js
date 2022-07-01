@@ -8,16 +8,16 @@ function Navigation() {
       <nav className="d-flex nav">
         <ul className="d-flex list-unstyled">
           <li className="p-2">
-            <a href=".home">HOME</a>
+            <a href="#">HOME</a>
           </li>
           <li className="p-2">
-            <a href=".menu">MENU</a>
+            <a href="#menu">MENU</a>
           </li>
           <li className="p-2">
-            <a href=".order">ORDER</a>
+            <a href="#order">ORDER</a>
           </li>
           <li className="p-2">
-            <a href=".about">ABOUT</a>
+            <a href="#about">ABOUT</a>
           </li>
         </ul>
         <button

@@ -47,6 +47,10 @@
 }
 .menu h2{text-align: center;}
 .menu h4{text-align: center;}
+.menu_item {
+    border-bottom: 1px solid;
+    cursor: pointer
+}
 
 .home-page .order {
     /* background-image: linear-gradient(rgba(9, 12, 8, 0.786), rgba(28, 38, 40, 0.7)), url(../../assets/img/dark-uts.jpg); */

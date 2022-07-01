@@ -178,7 +178,7 @@ export default function App() {
 }
 
 // this component gets rendered by App after the form is submitted
-function Notification() {
+function Notification(func) {
   const { networkId } = getConfig(process.env.NODE_ENV || 'development')
   const urlPrefix = `https://explorer.${networkId}.near.org/accounts`
 

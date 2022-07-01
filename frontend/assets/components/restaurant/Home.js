@@ -1,90 +1,101 @@
-import React, { useEffect, useState } from 'react'
-import Navigation from './Navigation';
-import '../../css/home.css'
+import React, { useEffect, useState } from "react";
+import Navigation from "./Navigation";
+import "../../css/home.css";
 import kitchen from "../../svg/plate.svg";
-import fast from "../../svg/fast.svg"
-import order from "../../svg/waiter.svg"
-import enjoy from "../../svg/cocktail.svg"
-import { order, menu, menu_items, menu_items, reciept } from '../../js/near/utils';
+import fast from "../../svg/fast.svg";
+import orders from "../../svg/waiter.svg";
+import enjoy from "../../svg/cocktail.svg";
+import { order, pay, menu_items, menu_items, reciept } from "../../js/near/utils";
 
-export default function Home({restaurant}) {
-  // const hash = hello(restaurant._id);
-  // console.log(hash);
-  const [menu, setMenu] = useState([])
-  const [foodIn, setFoodIn] = useState("")
-  const [foodList, setFoodList] = useState(["salad ", "prawns", "fried egg"])
-  const [isConfirm, setIsConfirm] = useState(false)
-  const [cost, setCost] = useState(0)
-  const [table, setTable] = useState()
-  const [tempTable, setTempTable] = useState()
+export default function Home({ restaurant }) {
+  const [menu, setMenu] = useState([]);
+  const [foodIn, setFoodIn] = useState("");
+  const [foodList, setFoodList] = useState(["prawns", "fried egg"]);
+  const [isConfirm, setIsConfirm] = useState(false);
+  const [cost, setCost] = useState(0);
+  const [table, setTable] = useState();
+  const [tempTable, setTempTable] = useState();
+  const [payStatus, setPayStatus] = useState("")
 
   const menus = async () => {
     let menu_data = await menu_items(
       restaurant._id || "5eb3d668b31de5d588f42936"
     );
-    setMenu(menu_data)
-    console.log('menu_items', menu_data)
-  }
+    setMenu(menu_data);
+    console.log("menu_items", menu_data);
+  };
 
   useEffect(() => {
-    menus()
-  }, [])
+    menus();
+  }, []);
 
   function addFood(e) {
     const food = e.target.value;
     if (food === "") {
-      setFoodIn("")
-      return
+      setFoodIn("");
+      return;
     }
-    setFoodIn(food)
+    setFoodIn(food);
   }
 
-  function addFoods(){
-    foodList.push(foodIn)
-    setFoodIn("")
+  function addFoods(foodTap) {
+    if (foodTap) {
+      foodList.push(foodTap)
+      setFoodIn("")
+    }
+    if (foodIn === "") {return}
+    foodList.push(foodIn);
+    setFoodIn("");
   }
 
-  function dropChoice(dropFood){
-    newFood = foodList.filter(food => food != dropFood)
-    setFoodList(newFood)
+  function dropChoice(dropFood) {
+    newFood = foodList.filter((food) => food != dropFood);
+    setFoodList(newFood);
   }
 
   const confirm = async () => {
     if (!isConfirm) {
-      await order(restaurant._id || "5eb3d668b31de5d588f42936", table, foodList);
-      await reciept(
+      await order(
         restaurant._id || "5eb3d668b31de5d588f42936",
-        table
-      ).then((cost) => setCost(cost));
+        table,
+        foodList
+      );
+      await reciept(restaurant._id || "5eb3d668b31de5d588f42936", table).then(
+        (cost) => setCost(cost)
+      );
       setIsConfirm(true);
       setFoodList([]);
     }
-    // setIsConfirm(true);
   };
 
   const tableUpdate = (e) => {
     let tableint = parseInt(e.target.value);
     setTempTable(tableint);
-  }
+  };
   const tableNum = () => {
     setTable(tempTable);
-  }
+  };
 
-  const pay = () => {
+  const payCall = async () => {
+    await pay(restaurant._id || "5eb3d668b31de5d588f42936",
+    table, cost).then((status) => {setPayStatus(status)});
+  };
 
-  }
-  
+  console.log("costs" + Number(cost * 10 ** 24));
+
   const menu_list = menu.map((menu_item, index) => {
-  return (
-    <div
-      className="menu_item d-flex justify-content-between w-70"
-      key={index}
-    >
-      <h3>{menu_item[0]}</h3>
-      <h3>{menu_item[1]} Ⓝ</h3>
-      {console.log(menu_item[0])}
-    </div>
-  );})
+    return (
+      <div
+        className="menu_item d-flex justify-content-between w-70"
+        key={index}
+        onClick={() =>{addFoods(menu_item[0])}}
+      >
+        <h3>{menu_item[0]}</h3>
+        <h3>{menu_item[1]} Ⓝ</h3>
+        {console.log(menu_item[0])}
+      </div>
+    );
+  });
 
   const foodChoices = foodList.map((food, index) => {
     return (
@@ -92,8 +103,8 @@ export default function Home({restaurant}) {
         <h4>{food}</h4>
         <button onClick={() => dropChoice(food)}>Drop choice</button>
       </div>
-    )
-  })
+    );
+  });
 
   return (
     <div className="m-0 home-page">
@@ -101,7 +112,7 @@ export default function Home({restaurant}) {
         <Navigation />
       </div>
       <div className="main-cont">
-        <section className="about d-flex">
+        <section className="about d-flex" id="home">
           <h2>Welcome to {restaurant.name}</h2>
           <h4>Main cuisine: {restaurant.cuisine}</h4>
           <div className="d-flex">
@@ -115,16 +126,19 @@ export default function Home({restaurant}) {
           <button onClick={() => {}}>Make an order</button>
         </section>
 
-        <section className="menu">
+        <section className="menu" id="menu">
           <h2>CUISINES</h2>
           <h4>Platos Delicious</h4>
           {menu_list}
         </section>
-        <section className="order">
+        <section className="order" id="order">
           <div className="welc">
-            <img src={order} alt="order"></img>
-            {table?<h4>What would you like for your table?</h4>:
-            <h4>Please enter your table number</h4>}
+            <img src={orders} alt="" />
+            {table ? (
+              <h4>What would you like for your table?</h4>
+            ) : (
+              <h4>Please enter your table number</h4>
+            )}
           </div>
           {!table ? (
             <div className="tables d-flex justify-content-center">
@@ -160,8 +174,8 @@ export default function Home({restaurant}) {
               <h3>Table no: {table}</h3>
               <h3 className="mb-4">Your order is confirmed, enjoy!</h3>
               <img src={enjoy} alt="enjoy"></img>
-              <h4 className="mt-3">Your bill is: {cost} </h4>
-              <button onClick={pay}>pay</button>
+              <h4 className="mt-3">Your bill is: {cost} Ⓝ</h4>
+              <button onClick={payCall}>pay</button>
             </div>
           ) : (
             <>
@@ -177,8 +191,7 @@ export default function Home({restaurant}) {
             </small>
           </div>
         </section>
-
-        <section className="stats">stats</section>
+        {/* <section className="stats" id="about">stats</section> */}
       </div>
     </div>
   );
