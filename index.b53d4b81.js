@@ -27110,7 +27110,7 @@ function App() {
                 children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactRouterDom.Route), {
                     exact: true,
                     path: "/",
-                    element: restaurant ? /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _homeDefault.default), {
+                    element: restaurant._ids ? /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _homeDefault.default), {
                         restaurant: restaurant
                     }, void 0, false, void 0, void 0) : /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _restaurantsListDefault.default), {
                         setRestaurant: setRestaurant
@@ -30128,8 +30128,8 @@ Object.defineProperty(exports, "BinaryReader", {
 
 },{"borsh":"4JCmN"}],"4JCmN":[function(require,module,exports) {
 "use strict";
-var Buffer = require("buffer").Buffer;
 var global = arguments[3];
+var Buffer = require("buffer").Buffer;
 var __createBinding = this && this.__createBinding || (Object.create ? function(o, m, k, k2) {
     if (k2 === undefined) k2 = k;
     Object.defineProperty(o, k2, {
@@ -38053,8 +38053,8 @@ async function signTransaction(...args) {
 exports.signTransaction = signTransaction;
 
 },{"buffer":"fCgem","js-sha256":"ahVaM","./utils/enums":"kjmPo","borsh":"4JCmN","./utils/key_pair":"kBQFP"}],"ahVaM":[function(require,module,exports) {
-var global = arguments[3];
 var process = require("process");
+var global = arguments[3];
 /**
  * [js-sha256]{@link https://github.com/emn178/js-sha256}
  *
