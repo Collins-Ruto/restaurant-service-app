@@ -1,8 +1,8 @@
-const CONTRACT_NAME = process.env.CONTRACT_NAME || "restaurant-service";
+const CONTRACT_NAME =
+  process.env.CONTRACT_NAME || "dev-1656242711520-68036241226917";
 
 function getConfig(env) {
   switch (env) {
-    case "production":
     case "mainnet":
       return {
         networkId: "mainnet",
@@ -12,8 +12,9 @@ function getConfig(env) {
         helperUrl: "https://helper.mainnet.near.org",
         explorerUrl: "https://explorer.mainnet.near.org",
       };
-    case "development":
-    case "testnet":
+      case "production":
+      case "development":
+      case "testnet":
       return {
         networkId: "testnet",
         nodeUrl: "https://rpc.testnet.near.org",
