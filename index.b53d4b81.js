@@ -27110,7 +27110,7 @@ function App() {
                 children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactRouterDom.Route), {
                     exact: true,
                     path: "/",
-                    element: restaurant._ids ? /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _homeDefault.default), {
+                    element: restaurant._id ? /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _homeDefault.default), {
                         restaurant: restaurant
                     }, void 0, false, void 0, void 0) : /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _restaurantsListDefault.default), {
                         setRestaurant: setRestaurant
