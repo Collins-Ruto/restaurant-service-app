@@ -1,3 +1,7 @@
+# Restaurant-Service
+
+Prototype available at [restaurant-service.netlify.com](https://restaurant-service.netlify.com)
+
 near-blank-project
 ==================
 
