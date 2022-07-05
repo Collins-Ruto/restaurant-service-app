@@ -63,7 +63,7 @@ export default function App() {
     // use React Fragment, <>, to avoid wrapping elements in unnecessary divs
     <>
       <Routes>
-        <Route exact path="/" element={restaurant._ids? <Home restaurant={restaurant} />: <RestaurantsList setRestaurant={setRestaurant}/>} />
+        <Route exact path="/" element={restaurant._id? <Home restaurant={restaurant} />: <RestaurantsList setRestaurant={setRestaurant}/>} />
       </Routes>
       {showNotification && <Notification />}
     </>
